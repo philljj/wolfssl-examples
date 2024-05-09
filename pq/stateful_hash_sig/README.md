@@ -2,13 +2,22 @@
 
 This directory contains:
 
-- A simple example that uses wolfCrypt LMS/HSS hooks to sign and verify a
+- An example that uses wolfCrypt LMS/HSS to sign and verify a
   message with configurable LMS/HSS parameters. Requires wolfssl with
   `--enable-lms`.
 
-- An example that uses wolfCrypt XMSS/XMSS^MT hooks to sign and verify a
+- An example that uses wolfCrypt XMSS/XMSS^MT to sign and verify a
   message with a configurable XMSS/XMSS^MT parameter string. Requires wolfssl
   with `--enable-xmss`.
+
+By default these examples use the wolfCrypt LMS and XMSS implementations
+(`wc_lms.c`, `wc_lms_impl.c`, `wc_xmss.c`, `wc_xmss_impl.c`), which are more
+performant and configurable. Also, these implementations benefit significantly
+from `--enable-intelasm` and `--enable-armasm`.
+
+If you want to use the old external integrations LMS/XMSS implementations
+(`ext_lms.c`, `ext_xmss.c`), see the section "Building the External Integration
+examples".
 
 ## Signing and Verifying a Message with LMS/HSS
 
