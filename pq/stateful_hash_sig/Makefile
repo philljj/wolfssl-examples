@@ -1,7 +1,7 @@
 # PQ Stateful Hash-Based Signature Examples Makefile
 #
 # HSS_INC, HSS_LIB, XMSS_INC, XMSS_LIB, and WOLF_STATIC_LIB are only
-# required if building with --with-libxmss.
+# required if building with --with-libxmss or --with-liblms.
 #
 CC       = gcc
 WOLFSSL_INSTALL_DIR = /usr/local
