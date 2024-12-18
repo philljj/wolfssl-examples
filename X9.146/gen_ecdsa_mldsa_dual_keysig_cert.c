@@ -178,7 +178,7 @@ static int do_certgen(int argc, char** argv)
     switch (argv[1][0])
     {
     case '2':
-        level = 2;
+        level = WC_ML_DSA_44_DRAFT;
         sapkiFile = sapkiFile2;
         altPrivFile = altPrivFile2;
         break;
@@ -258,7 +258,10 @@ static int do_certgen(int argc, char** argv)
     printf("Decoding the CA alt private key\n");
     wc_dilithium_init(&altCaKey);
     ret = wc_dilithium_set_level(&altCaKey, level);
-    if (ret < 0) goto exit;
+    if (ret < 0) {
+        printf("error: wc_dilithium_set_level: %d\n", ret);
+        goto exit;
+    }
 
     idx = 0;
     ret = wc_Dilithium_PrivateKeyDecode(altPrivBuf, &idx, &altCaKey,
@@ -271,6 +274,7 @@ static int do_certgen(int argc, char** argv)
     switch (level)
     {
     case 2:
+    case WC_ML_DSA_44_DRAFT:
         altSigAlgSz = SetAlgoID(CTC_DILITHIUM_LEVEL2, altSigAlgBuf, oidSigType,
                                 0);
         break;
@@ -306,6 +310,7 @@ static int do_certgen(int argc, char** argv)
     switch (level)
     {
     case 2: 
+    case WC_ML_DSA_44_DRAFT:
         newCert.sigType = CTC_SHA256wECDSA;
         break;
     case 3: 
@@ -373,6 +378,7 @@ static int do_certgen(int argc, char** argv)
     switch (level)
     {
     case 2:
+    case WC_ML_DSA_44_DRAFT:
         ret = wc_MakeSigWithBitStr(altSigValBuf, altSigValSz,
                                    CTC_DILITHIUM_LEVEL2, preTbsBuf, preTbsSz,
                                    DILITHIUM_LEVEL2_TYPE, &altCaKey, &rng);
