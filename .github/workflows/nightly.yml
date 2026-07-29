@@ -33,13 +33,13 @@ jobs:
     steps:
       - run: echo "nightly authorised for ${{ github.repository }}"
 
-  # master + the two most recent stable tags, resolved at run time.
+  # master + the most recent stable tag, resolved at run time.
   refs:
     needs: [gate]
     uses: ./.github/workflows/_resolve-wolfssl.yml
     with:
       refs: ${{ inputs.wolfssl_refs || '' }}
-      stable_count: 2
+      stable_count: 1
 
   # Every target in ONE run: 13 crons meant 13 triage writers racing
   host:
